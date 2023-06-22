@@ -1,0 +1,34 @@
+import random
+import string
+import hashlib
+import json
+from datetime import datetime
+
+# Generate a random string of length 20
+random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+
+# Create a hash of the random string using SHA-256
+hash_value = hashlib.sha256(random_string.encode()).hexdigest()
+
+# Print the random string and the hash
+print("Random String:", random_string)
+print("Hash:", hash_value)
+
+# Create a JSON object with the date and the hash
+data = {
+    "date": datetime.now().isoformat(),
+    "hash": hash_value
+}
+
+# Load the existing JSON list from tokens.json
+with open("tokens.json", "r") as file:
+    json_list = json.load(file)
+
+# Append the new JSON object to the end of the JSON list
+json_list.append(data)
+
+# Write the updated JSON list back to tokens.json
+with open("tokens.json", "w") as file:
+    json.dump(json_list, file, indent=4)
+
+
