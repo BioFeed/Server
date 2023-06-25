@@ -2,6 +2,7 @@ import random
 import string
 import hashlib
 import json
+import os
 from datetime import datetime
 
 # Generate a random string of length 20
@@ -19,6 +20,11 @@ data = {
     "date": datetime.now().isoformat(),
     "hash": hash_value
 }
+
+if not os.path.exists("tokens.json"):
+    # Create tokens.json file if it doesn't exist
+    with open("tokens.json", "w") as file:
+        json.dump([], file)
 
 # Load the existing JSON list from tokens.json
 with open("tokens.json", "r") as file:

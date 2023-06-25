@@ -2,9 +2,18 @@ from typing import Any, Iterable, Iterator, NamedTuple, Optional
 from flask import Flask, request
 import hashlib
 import json
+import os
+
+if not os.path.exists("data.json"):
+    # Create tokens.json file if it doesn't exist
+    with open("data.json", "w") as file:
+        json.dump([], file)
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def index():
+    return 'Flask Server is running'
 
 class Measure(NamedTuple):
     name: str
@@ -64,22 +73,14 @@ def data_to_string(data) -> list:
     return [str(x) for x in measures]
 
 
-def get_data() -> dict:
-    global data
-    with open('data.json', 'r') as file:
-        data = json.load(file)
-    return data
-
-
 def get_tokens() -> dict:
-    global tokens
     with open('tokens.json', 'r') as file:
         tokens = json.load(file)
     return tokens
 
-
 def verify_token(token) -> bool:
-    global tokens
+    print(token)
+    tokens = get_tokens()
     if token is None:
         return False
     hash = hashlib.sha256(token.encode()).hexdigest()
@@ -89,24 +90,28 @@ def verify_token(token) -> bool:
     return b
 
 
-def save_data() -> None:
-    global data
-    with open('data.json', 'w') as file:
-        json.dump(data, file, indent=4)
+def save_data(data) -> None:
+    with open('data.json', 'r') as file:
+        existing_data = json.load(file)
 
+    existing_data.append(data)
+
+    with open('data.json', 'w') as file:
+        json.dump(existing_data, file, indent=4)
 
 @app.route('/fetch_data', methods=['GET'])
 def fetch_data():
-    global data
+    with open('data.json', 'r') as file:
+        data = json.load(file)
     return data_to_string(data)
 
 
 @app.route('/store_data', methods=['POST'])
 def store_data():
-    global data
     new_data = request.json
+    print("New data: " + str(new_data))
     if verify_token(new_data['token']):
-        data.append(new_data)
+        save_data(new_data)
         return 'Data saved'
     return 'Not authorized'
 
@@ -115,23 +120,13 @@ def store_data():
 def command():
     cmd = request.args.get('cmd')
     if cmd == 'save':
-        save_data()
+        save_data([])
         return 'Data saved in file'
     elif cmd == 'clear':
-        data.clear()
+        with open('data.json', 'w') as file:
+            file.truncate(0)
         return 'Data cleared'
     else:
         return 'Command unknown'
 
-
-# @app.route('/upload_image', methods=['POST'])
-# def upload_image():
-#     image_file = request.files['imageFile']
-#     # Process the image file here
-#     image_file.save('uploaded_image.jpg')
-#     return 'Image uploaded successfully'
-
-
-data = get_data()
-tokens = get_tokens()
-# app.run()
+app.run()
