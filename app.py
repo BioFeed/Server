@@ -11,9 +11,11 @@ if not os.path.exists("data.json"):
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET'])
 def index():
     return 'Flask Server is running'
+
 
 class Measure(NamedTuple):
     name: str
@@ -78,9 +80,15 @@ def get_tokens() -> dict:
         tokens = json.load(file)
     return tokens
 
+
+def get_data() -> dict:
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+    return data
+
+
 def verify_token(token) -> bool:
-    print(token)
-    tokens = get_tokens()
+    global tokens
     if token is None:
         return False
     hash = hashlib.sha256(token.encode()).hexdigest()
@@ -91,13 +99,9 @@ def verify_token(token) -> bool:
 
 
 def save_data(data) -> None:
-    with open('data.json', 'r') as file:
-        existing_data = json.load(file)
-
-    existing_data.append(data)
-
     with open('data.json', 'w') as file:
-        json.dump(existing_data, file, indent=4)
+        json.dump(data, file, indent=4)
+
 
 @app.route('/fetch_data', methods=['GET'])
 def fetch_data():
@@ -129,4 +133,6 @@ def command():
     else:
         return 'Command unknown'
 
+tokens = get_tokens()
+data = get_data()
 app.run()
