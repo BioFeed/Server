@@ -1,4 +1,9 @@
 from typing import Any, Iterable, Iterator, NamedTuple, Optional
+import json
+import os
+
+ABS_PATH = os.path.abspath('.')
+DATA_PATH = ABS_PATH + '/data/data.json'
 
 
 class Measure(NamedTuple):
@@ -46,3 +51,48 @@ class Measure(NamedTuple):
             f'humidity : {self.humidity} | '
             f'state : {self.state}'
         )
+
+
+def get_data() -> dict:
+    if not os.path.exists(DATA_PATH):
+        with open(DATA_PATH, "w") as file:
+            json.dump([], file)
+            return dict([])
+    else:
+        with open(DATA_PATH, 'r') as file:
+            data = json.load(file)
+            return data
+
+
+def save_data() -> str:
+    with open(DATA_PATH, 'w') as file:
+        json.dump(data, file, indent=4)
+        return 'Saved data'
+
+
+def print_data(data) -> None:
+    measures = Measure.from_dict(data)
+    for measure in measures:
+        print(measure)
+
+
+def data_to_string(data) -> list:
+    measures = Measure.from_dict(data)
+    return [str(x) for x in measures]
+
+
+def add_data(x) -> str:
+    global data
+    data.append(x)
+    print('-> Added new data: ' + str(x))
+    return 'Add new data'
+
+
+def clear_data() -> str:
+    global data
+    data.clear()
+    print('-> Cleared data')
+    return 'Cleared data'
+
+
+data = get_data()
