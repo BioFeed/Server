@@ -1,9 +1,11 @@
-# Auth
-tokens.json
+# Auth and data
+data/
 
 # Perso
-tests.py
 perso/
+
+# Images
+images/
 
 # ---> Python
 # Byte-compiled / optimized / DLL files

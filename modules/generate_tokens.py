@@ -21,20 +21,20 @@ data = {
     "hash": hash_value
 }
 
-if not os.path.exists("tokens.json"):
+if not os.path.exists("../data/tokens.json"):
     # Create tokens.json file if it doesn't exist
-    with open("tokens.json", "w") as file:
+    with open("../data/tokens.json", "w") as file:
         json.dump([], file)
 
 # Load the existing JSON list from tokens.json
-with open("tokens.json", "r") as file:
+with open("../data/tokens.json", "r") as file:
     json_list = json.load(file)
 
 # Append the new JSON object to the end of the JSON list
 json_list.append(data)
 
 # Write the updated JSON list back to tokens.json
-with open("tokens.json", "w") as file:
+with open("../data/tokens.json", "w") as file:
     json.dump(json_list, file, indent=4)
 
 
