@@ -8,10 +8,10 @@ app = Flask(__name__)
 
 def check(r: dict) -> bool:
     if ('token' not in r.keys()) or (not verify_token(r['token'])):
-        print('Connection refused: wrong token or no token')
+        print('x> Connection refused: wrong token or no token')
         return False
     else:
-        print('Connection authorized')
+        print('-> Connection authorized')
         return True
 
 
@@ -24,6 +24,8 @@ def index() -> str:
 def store_data() -> str:
     new_data = request.json
     if check(new_data):
+        # Enlever le token de la requête avant de l'ajouter
+        del new_data['token']
         return add_data(new_data)
     else:
         return 'Not authorized'
