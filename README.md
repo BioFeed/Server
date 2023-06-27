@@ -6,9 +6,16 @@ En plus tout est en python donc c'est lisible. La documentation est disponible
 [ici](https://flask.palletsprojects.com/en/2.3.x/).
 
 ## Utilisation ##
-Après avoir cloné le projet, il reste quelques étapes avant de pouvoir lancer le serveur. Pour cela il suffit de faire :
+Après[]() avoir cloné le projet, il reste quelques étapes avant de pouvoir lancer le serveur. 
 ```sh 
-make init
+# Créer le dossier `data/` où seront stockés `data.json` et `tokens.json`
+mkdir data 
+
+# Créer le virtual environment python et installer les modules 
+python3 -m venv venv 
+source venv/bin/activate
+python3 -m pip install --upgrade pip 
+python3 -m pip install -r requirements.txt 
 ```
 
 Pour lancer le serveur flask, exécuter la commande : 
@@ -17,19 +24,28 @@ flask --app app.py run
 ```
 
 ## Tests ##
-Des tests ont été implémentés dans le `Makefile`, pour l'utiliser, il faut d'abord le configurer. Directement sur le 
-serveur, lancez le script `generate_tokens.py` qui se trouve dans le dossier `modules/`. Récupérez la chaîne de
-caractères aléatoire et stockez là. C'est grâce à ce token que l'on peut envoyer des requêtes au serveur. Il faudra pour 
-les tests la rentrer dans la variable `TOKEN` du `Makefile`. N'oubliez pas de la supprimer une fois les tests finis !
-Remplissez le reste des informations et lancez `make test` ou `make test_local` pour effectuer les tests.  
+Pour lancer les tests il suffit de lancer `python tests.py` avec les bonnes informations en début de script. 
+
+Les tests sont configurables : 
+```python 
+tests = [
+            (
+                {"name": "carotte", "date": 1234, "photo": "base64ici", "token": TOKEN}, # <-- informations
+                '/store_data' # <-- page à acceder 
+            ), 
+            ...
+        ]
+```
+Le script envoie les requêtes et vérifie si le serveur renvoie 200, ce qui est sensé être le cas pour toutes les 
+requêtes.
 
 Informations à modifier : 
-```makefile
-TOKEN=X9oIrX4UlQsjY5P0XXtO
-DISTANT_URL=biofeed.vitavault.fr
-DISTANT_PORT=443
-LOCAL_URL=localhost
-LOCAL_PORT=5000
+```python
+TOKEN = 'X9oIrX4UlQsjY5P0XXtO'
+DISTANT_URL = 'biofeed.vitavault.fr'
+DISTANT_PORT = 443
+LOCAL_URL = 'localhost'
+LOCAL_PORT = 5000
 ```
 
 La version locale correspond aux tests effectués directement sur le serveur. Par exemple en testant directement le

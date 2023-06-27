@@ -3,7 +3,7 @@ data/
 
 # Perso
 perso/
-tests.py
+perso/tests.py
 
 # Images
 images/

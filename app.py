@@ -45,7 +45,8 @@ def command() -> str:
         else:
             return 'No command'
     else:
-        'Not authorized'
+        return 'Not authorized'
 
 
-app.run()
+if __name__ == '__main__':
+    app.run()
