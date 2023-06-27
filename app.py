@@ -11,8 +11,8 @@ def index():
     return 'Flask Server is running'
 
 
-@app.route('/fetch_data', methods=['POST'])
-def fetch_data():
+@app.route('/store_data', methods=['POST'])
+def store_data():
     new_data = request.json
     if ('token' in new_data.keys()) and (verify_token(new_data['token'])):
         return add_data(new_data)
@@ -23,7 +23,6 @@ def fetch_data():
 
 @app.route('/command', methods=['GET'])
 def command():
-    global data
     cmd = request.args.get('cmd')
     if cmd == 'save':
         return save_data()
