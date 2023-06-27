@@ -33,7 +33,7 @@ def store_data() -> str:
 def command() -> str:
     r = request.json
     if check(r):
-        if 'command' in r.keys:
+        if 'command' in r.keys():
             if r['command'] == 'save':
                 return save_data()
             elif r['command'] == 'clear':
