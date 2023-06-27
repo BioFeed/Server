@@ -15,8 +15,8 @@ class Measure(NamedTuple):
     state: Optional[str]
 
     @classmethod
-    def from_dict(cls, data: Iterable[dict[str, Any]]) -> Iterator['Measure']:
-        for x in data:
+    def from_dict(cls, d: Iterable[dict[str, Any]]) -> Iterator['Measure']:
+        for x in d:
             yield cls(
                 name=x['name'],
                 date=x['date'],
@@ -27,14 +27,14 @@ class Measure(NamedTuple):
             )
 
     @classmethod
-    def from_json(cls, data: dict[str, Any]) -> 'Measure':
+    def from_json(cls, d: dict[str, Any]) -> 'Measure':
         return cls(
-            name=data['name'],
-            date=data['date'],
-            photo=data['photo'],
-            temperature=data.get('temperature'),
-            humidity=data.get('humidity'),
-            state=data.get('state')
+            name=d['name'],
+            date=d['date'],
+            photo=d['photo'],
+            temperature=d.get('temperature'),
+            humidity=d.get('humidity'),
+            state=d.get('state')
         )
 
     # Il n'y a pas la photo
@@ -53,15 +53,15 @@ class Measure(NamedTuple):
         )
 
 
-def get_data() -> dict:
+def get_data() -> list:
     if not os.path.exists(DATA_PATH):
         with open(DATA_PATH, "w") as file:
             json.dump([], file)
-            return dict([])
+            return []
     else:
         with open(DATA_PATH, 'r') as file:
-            data = json.load(file)
-            return data
+            d = json.load(file)
+            return d
 
 
 def save_data() -> str:
@@ -70,18 +70,18 @@ def save_data() -> str:
         return 'Saved data'
 
 
-def print_data(data) -> None:
-    measures = Measure.from_dict(data)
+def print_data(x: dict) -> None:
+    measures = Measure.from_dict(x)
     for measure in measures:
         print(measure)
 
 
-def data_to_string(data) -> list:
-    measures = Measure.from_dict(data)
+def data_to_string(x: dict) -> list:
+    measures = Measure.from_dict(x)
     return [str(x) for x in measures]
 
 
-def add_data(x) -> str:
+def add_data(x: dict) -> str:
     global data
     data.append(x)
     print('-> Added new data: ' + str(x))
