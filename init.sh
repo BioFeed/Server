@@ -1,7 +1,7 @@
 
 
 # Création de la structure :
-mkdir data
+mkdir -p data
 
 # Création de l'environnement python
 python3 -m venv venv
