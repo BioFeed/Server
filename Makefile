@@ -1,8 +1,15 @@
+
+# Informations
 TOKEN=X9oIrX4UlQsjY5P0XXtO
 DISTANT_URL=biofeed.vitavault.fr
 DISTANT_PORT=443
 LOCAL_URL=localhost
 LOCAL_PORT=5000
+
+# Variables par défaut
+URL=$(DISTANT_URL)
+PORT=$(DISTANT_PORT)
+HTTP=https
 
 init:
 	# Création de la structure :
@@ -14,17 +21,16 @@ init:
 	python3 -m pip install --upgrade pip
 	python3 -m pip install -r requirements.txt
 
+.SILENT:
 test_local:
-	@curl -X POST -H "Content-Type: application/json" -d \
-	'{"name": "carotte", "date": 2832, "photo": "base64ici", "token": "$(TOKEN)"}' \
-	http://$(LOCAL_URL):$(LOCAL_PORT)/store_data
-	@curl -X POST -H "Content-Type: application/json" -d \
-	'{"command": "save", "token": "$(TOKEN)"}' \
-	http://$(LOCAL_URL):$(LOCAL_PORT)/command
+	@make test URL=$(LOCAL_URL) PORT=$(LOCAL_PORT) HTTP=http
 
+.SILENT:
 test:
 	@curl -X POST -H "Content-Type: application/json" -d \
 	'{"name": "carotte", "date": 2832, "photo": "base64ici", "token": "$(TOKEN)"}' \
-	https://$(DISTANT_URL):$(DISTANT_PORT)/store_data
-
+	$(HTTP)://$(URL):$(PORT)/store_data
+	@curl -X POST -H "Content-Type: application/json" -d \
+	'{"command": "save", "token": "$(TOKEN)"}' \
+	$(HTTP)://$(URL):$(PORT)/command
 
