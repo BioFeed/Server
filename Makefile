@@ -1,4 +1,8 @@
 TOKEN=X9oIrX4UlQsjY5P0XXtO
+DISTANT_URL=biofeed.vitavault.fr
+DISTANT_PORT=443
+LOCAL_URL=localhost
+LOCAL_PORT=5000
 
 init:
 	# Création de la structure :
@@ -13,11 +17,11 @@ init:
 test_local:
 	@curl -X POST -H "Content-Type: application/json" -d \
 	'{"name": "carotte", "date": 2832, "photo": "base64ici", "token": "$(TOKEN)"}' \
-	http://localhost:5000/store_data
+	http://$(LOCAL_URL):$(LOCAL_PORT)/store_data
 
 test:
 	@curl -X POST -H "Content-Type: application/json" -d \
 	'{"name": "carotte", "date": 2832, "photo": "base64ici", "token": "$(TOKEN)"}' \
-	https://biofeed.vitavault.fr:443/store_data
+	https://$(DISTANT_URL):$(DISTANT_PORT)/store_data
 
 
