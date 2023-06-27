@@ -18,6 +18,9 @@ test_local:
 	@curl -X POST -H "Content-Type: application/json" -d \
 	'{"name": "carotte", "date": 2832, "photo": "base64ici", "token": "$(TOKEN)"}' \
 	http://$(LOCAL_URL):$(LOCAL_PORT)/store_data
+	@curl -X POST -H "Content-Type: application/json" -d \
+	'{"command": "save", "token": "$(TOKEN)"}' \
+	http://$(LOCAL_URL):$(LOCAL_PORT)/command
 
 test:
 	@curl -X POST -H "Content-Type: application/json" -d \
