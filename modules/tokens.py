@@ -3,7 +3,7 @@ import json
 import os
 
 ABS_PATH = os.path.dirname(__file__)
-DATA_PATH = ABS_PATH + '/../data/data.json'
+TOKENS_PATH = ABS_PATH + '/../data/tokens.json'
 
 
 def get_tokens() -> list:

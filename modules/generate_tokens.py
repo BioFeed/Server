@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 
 ABS_PATH = os.path.dirname(__file__)
-DATA_PATH = ABS_PATH + '/../data/data.json'
+TOKENS_PATH = ABS_PATH + '/../data/tokens.json'
 
 # Generate a random string of length 20
 random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
