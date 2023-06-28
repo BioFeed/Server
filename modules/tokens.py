@@ -2,7 +2,8 @@ import hashlib
 import json
 import os
 
-ABS_PATH = os.path.abspath('.')
+# ABS_PATH = os.path.abspath('.')
+ABS_PATH = 'home/debian/Server'
 TOKENS_PATH = ABS_PATH + '/data/tokens.json'
 
 

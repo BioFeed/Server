@@ -2,7 +2,8 @@ from typing import Any, Iterable, Iterator, NamedTuple, Optional
 import json
 import os
 
-ABS_PATH = os.path.abspath('.')
+# ABS_PATH = os.path.abspath('.')
+ABS_PATH = '/home/debian/Server'
 DATA_PATH = ABS_PATH + '/data/data.json'
 
 
