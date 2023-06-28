@@ -6,17 +6,7 @@ En plus tout est en python donc c'est lisible. La documentation est disponible
 [ici](https://flask.palletsprojects.com/en/2.3.x/).
 
 ## Utilisation ##
-Après avoir cloné le projet, il reste quelques étapes avant de pouvoir lancer le serveur. 
-```sh 
-# Créer le dossier `data/` où seront stockés `data.json` et `tokens.json`
-mkdir data 
-
-# Créer le virtual environment python et installer les modules 
-python3 -m venv venv 
-source venv/bin/activate
-python3 -m pip install --upgrade pip 
-python3 -m pip install -r requirements.txt 
-```
+Après avoir cloné le projet, préparer le serveur avec `chmod +x init.sh && ./init.sh`.
 
 Pour lancer le serveur flask, exécuter la commande : 
 ```sh 
