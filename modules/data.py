@@ -2,9 +2,8 @@ from typing import Any, Iterable, Iterator, NamedTuple, Optional
 import json
 import os
 
-# ABS_PATH = os.path.abspath('.')
-ABS_PATH = '/home/debian/Server'
-DATA_PATH = ABS_PATH + '/data/data.json'
+ABS_PATH = os.path.dirname(__file__)
+DATA_PATH = ABS_PATH + '/../data/data.json'
 
 
 class Measure(NamedTuple):

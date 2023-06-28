@@ -7,13 +7,6 @@ En plus tout est en python donc c'est lisible. La documentation est disponible
 
 ## Utilisation ##
 Après avoir cloné le projet, préparer le serveur avec `chmod +x init.sh && ./init.sh`.
-Il faut aussi modifier les chemins absolus dans les scripts `modules/data.py`, `modules/tokens.py`, `
-modules/generate_tokens.py` pour que le serveur fonctionne avec systemd (à automatiser).
-```python 
-# ABS_PATH = os.path.abspath('.')
-ABS_PATH = '/home/debian/Server'  # <-- Mettre le chemin complet vers le dossier contenant app.py 
-DATA_PATH = ABS_PATH + '/data/data.json'
-```
 
 Pour lancer le serveur flask, exécuter la commande : 
 ```sh 
