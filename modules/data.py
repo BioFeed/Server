@@ -5,6 +5,7 @@ import os
 ABS_PATH = os.path.dirname(__file__)
 DATA_PATH = ABS_PATH + '/../data/data.json'
 
+requests = 0
 
 class Measure(NamedTuple):
     name: str
@@ -81,9 +82,14 @@ def data_to_string(x: dict) -> list:
     return [str(x) for x in measures]
 
 
-def add_data(x: dict) -> str:
+def add_data(x: dict, requests_batch_length=10) -> str:
     global data
+    global requests
     data.append(x)
+    requests += 1
+    if requests >= requests_batch_length:
+        requests = 0
+        save_data()
     print('-> Added new data: ' + str(x))
     return 'Add new data'
 

@@ -1,5 +1,6 @@
 import unittest
 import requests
+import random
 
 # Information:
 TOKEN = 'X9oIrX4UlQsjY5P0XXtO'
@@ -18,7 +19,9 @@ def send_post_request(url, data):
 class MyTestCase(unittest.TestCase):
     def test_local_post_request(self):
         argv = input('Local ? [Y|n] > ')
-        if argv[0].lower() == 'y':
+        r = random.randint(0, 10000)
+        print('Random number: ', r)
+        if (len(argv) == 0) or (argv[0].lower() == 'y'):
             url, port, protocol = LOCAL_URL, LOCAL_PORT, 'http'
         else:
             url, port, protocol = DISTANT_URL, DISTANT_PORT, 'https'
@@ -26,7 +29,59 @@ class MyTestCase(unittest.TestCase):
 
         tests = [
             (
-                {"name": "carotte", "date": 1234, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"command": "clear", "token": TOKEN},
+                '/command'
+            ),
+            (
+                {"name": "carotte1", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte2", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "courgette", "date": r, "photo": "base64ici", "token": "wrong_token"},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte3", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte4", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte5", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte6", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte7", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte8", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte9", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "carotte10", "date": r, "photo": "base64ici", "token": TOKEN},
+                '/store_data'
+            ),
+            (
+                {"name": "tomate", "date": r, "photo": "base64ici", "token": TOKEN},
                 '/store_data'
             )
         ]
