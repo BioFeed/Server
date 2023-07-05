@@ -4,7 +4,6 @@ from modules.tokens import verify_token
 
 
 app = Flask(__name__)
-REQUEST_BATCH_LENGTH = 10   # Number of request to hold until it's written on data.json
 
 
 def check(r: dict) -> bool:
@@ -26,7 +25,7 @@ def store_data() -> str:
     new_data = request.json
     if check(new_data):
         del new_data['token']       # Remove the token before adding the data
-        return add_data(new_data, requests_batch_length=REQUEST_BATCH_LENGTH)
+        return add_data(new_data)
     else:
         return 'Not authorized'
 

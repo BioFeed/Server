@@ -3,7 +3,7 @@ import requests
 import random
 
 # Information:
-TOKEN = 'X9oIrX4UlQsjY5P0XXtO'
+TOKEN = 'IrAw7YRknJ4mYG2kBFdx'
 DISTANT_URL = 'biofeed.vitavault.fr'
 DISTANT_PORT = 443
 LOCAL_URL = 'localhost'
@@ -29,59 +29,59 @@ class MyTestCase(unittest.TestCase):
 
         tests = [
             (
-                {"name": "carotte", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
+                '/store_data'
+            ),
+            # (
+            #     {"command": "clear", "token": TOKEN},
+            #     '/command'
+            # ),
+            (
+                {"name": "carotte1", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"command": "clear", "token": TOKEN},
-                '/command'
-            ),
-            (
-                {"name": "carotte1", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte2", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte2", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "courgette", "date": r, "photo": "base64ici", "token": "wrong_token", "test": True},
                 '/store_data'
             ),
             (
-                {"name": "courgette", "date": r, "photo": "base64ici", "token": "wrong_token"},
+                {"name": "carotte3", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte3", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte4", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte4", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte5", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte5", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte6", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte6", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte7", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte7", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte8", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte8", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte9", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte9", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "carotte10", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             ),
             (
-                {"name": "carotte10", "date": r, "photo": "base64ici", "token": TOKEN},
-                '/store_data'
-            ),
-            (
-                {"name": "tomate", "date": r, "photo": "base64ici", "token": TOKEN},
+                {"name": "tomate", "date": r, "photo": "base64ici", "token": TOKEN, "test": True},
                 '/store_data'
             )
         ]

@@ -4,8 +4,10 @@ import os
 
 ABS_PATH = os.path.dirname(__file__)
 DATA_PATH = ABS_PATH + '/../data/data.json'
+BACKUP_PATH = ABS_PATH + '/../backups'
+REQUEST_BATCH_LENGTH = 10
+DATA_SIZE_MAX = 40
 
-requests = 0
 
 class Measure(NamedTuple):
     name: str
@@ -66,9 +68,18 @@ def get_data() -> list:
 
 
 def save_data() -> str:
+    global data
     with open(DATA_PATH, 'w') as file:
         json.dump(data, file, indent=4)
         return 'Saved data'
+
+
+def backup_data() -> None:
+    global data
+    n = len(os.listdir(BACKUP_PATH))       # On regarde le nombre de fichiers dans backups/
+    with open(BACKUP_PATH + f'/backup_{n}.json', 'a') as file:
+        json.dump(data, file, indent=4)
+        data.clear()
 
 
 def print_data(x: dict) -> None:
@@ -82,14 +93,15 @@ def data_to_string(x: dict) -> list:
     return [str(x) for x in measures]
 
 
-def add_data(x: dict, requests_batch_length=10) -> str:
+def add_data(x: dict) -> str:
     global data
     global requests
     data.append(x)
     requests += 1
-    if requests >= requests_batch_length:
-        requests = 0
+    if requests % REQUEST_BATCH_LENGTH == 0:
         save_data()
+    if requests % DATA_SIZE_MAX == 0:
+        backup_data()
     print('-> Added new data: ' + str(x))
     return 'Add new data'
 
@@ -102,3 +114,4 @@ def clear_data() -> str:
 
 
 data = get_data()
+requests = 0

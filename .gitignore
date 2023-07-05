@@ -1,5 +1,6 @@
 # Auth and data
 data/
+backups/*
 
 # Perso
 perso/
